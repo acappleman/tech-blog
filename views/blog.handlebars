@@ -1,15 +1,18 @@
 <div class="text-center" id="blog-post" data-id="{{id}}">
   <h2>{{{get_emoji}}} {{name}}</h2>
   <p>{{description}}</p>
-  <p>Created by {{user.name}} on {{format_date date_created}}</p>
+  <p>Created by {{user.username}} on {{format_date date_created}}</p>
 </div>
-
 <div class="col-md-6">
   <h3>Comments</h3>
   {{#each comments as |comment| }}
   <div class="row mb-4 comment-box">
     <div class="col-md-12 comment-header">
-      Created by {{comment.user.name}} on {{format_date comment.date_created}}
+      Created by {{comment.user.username}} on {{format_date comment.date_created}}
+      {{#if (is_current_user ../current_user comment.user.id)}}
+        <button class="btn btn-sm btn-danger comment-button" data-id="{{comment.id}}">DELETE</button>
+        <button class="btn btn-sm comment-button" data-id="{{comment.id}}">EDIT</button>
+      {{/if}}
     </div>
     <div class="col-md-12 comment-body">
       <p>
@@ -20,6 +23,7 @@
   {{/each}}
 </div>
 
+{{#if logged_in}}
 <div class="col-md-6">
   <h3>Add a comment:</h3>
 
@@ -32,5 +36,6 @@
     </div>
   </form>
 </div>
+{{/if}}
 
 <script src="../js/blog.js"></script>

@@ -1,0 +1,23 @@
+<div class="col-md-12">
+    <h3>Create a New Blog:</h3>
+    <form class="form new-blog-form">
+        <div class="form-group">
+            <label for="blog-name">Blog Name:</label>
+            <input class="form-input" type="text" id="blog-name" value="{{name}}" name="blog-name" />
+        </div>
+        <div class="form-group">
+            <label for="blog-desc">Description:</label>
+            <textarea class="form-input" id="blog-desc" name="blog-desc">{{description}}</textarea>
+        </div>
+        <div class="form-group">
+            {{#if (is_new_blog id)}}
+            <button type="submit" class="btn btn-primary">Create</button>
+            {{else}}
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button class="btn btn-danger">DELETE</button>
+            {{/if}}
+        </div>
+    </form>
+</div>
+
+<script src="../js/newblog.js"></script>

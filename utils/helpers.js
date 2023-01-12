@@ -18,5 +18,20 @@ module.exports = {
     } else {
       return `<span for="img" aria-label="gear">⚙️</span>`;
     }
+  },
+  is_current_user: (current_user, id) => {
+    if (current_user === id) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  is_new_blog: (blogId) => {
+    console.log(blogId);
+    if (Number(blogId) > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 };

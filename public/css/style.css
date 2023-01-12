@@ -31,3 +31,7 @@ header, .blog:not(:last-child) {
 .comment-body {
   padding: 10px;
 }
+
+.comment-button {
+  float: right;
+}

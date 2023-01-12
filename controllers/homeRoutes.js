@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
       ],
     });
@@ -27,13 +27,13 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/blog/:id', withAuth, async (req, res) => {
+router.get('/blog/:id', async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
         {
           model: Comment,
@@ -50,7 +50,37 @@ router.get('/blog/:id', withAuth, async (req, res) => {
 
     res.render('blog', {
       ...blog,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      current_user: req.session.user_id
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.get('/newblog/:id', withAuth, async (req, res) => {
+  try {
+    let blog = {
+      name: '',
+      desciption: ''
+    }
+    if (req.params.id > 0) {
+      const blogData = await Blog.findByPk(req.params.id, {
+        include: [
+          {
+            model: User,
+            attributes: ['username'],
+          }
+        ],
+      });
+
+      blog = blogData.get({ plain: true });
+    }
+
+    res.render('newblog', {
+      ...blog,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.log(err);
